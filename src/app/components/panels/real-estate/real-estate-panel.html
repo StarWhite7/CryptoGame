@@ -1,0 +1,8 @@
+<header class="panel-heading"><div><span class="eyebrow">EXPANSION</span><h1>Agence immobilière</h1><p>Agrandissez votre capacité de minage en ville.</p></div></header>
+@for (district of districts; track district) {
+  <h2 class="district">{{ district }}</h2><section class="cards">
+    @for (property of game.propertyDefs; track property.id) { @if (property.district === district) {
+      <article class="card"><h3>{{ property.name }}</h3><p>{{ property.desc }}</p><dl><div><dt>Puissance</dt><dd>{{ property.powerLimit }} kW</dd></div><div><dt>Emplacements</dt><dd>{{ property.slots }}</dd></div><div><dt>Température ambiante</dt><dd>{{ property.ambient }} °C</dd></div></dl><footer><strong>{{ property.price ? game.format0(property.price) + ' $' : 'Propriété de départ' }}</strong><button class="button" [disabled]="game.state().ownedPropertyIds.includes(property.id) || game.state().cash < property.price" (click)="game.buyProperty(property.id)">{{ game.state().ownedPropertyIds.includes(property.id) ? 'Possédé' : 'Acheter' }}</button></footer></article>
+    } }
+  </section>
+}

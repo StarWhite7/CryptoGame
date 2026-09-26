@@ -1,0 +1,16 @@
+<div class="game-screen">
+  <app-game-hud />
+  <app-game-nav />
+  <main class="content">
+    @switch (game.activePanel()) {
+      @case ('home') { <app-home-panel /> }
+      @case ('shop') { <app-shop-panel /> }
+      @case ('bank') { <app-bank-panel /> }
+      @case ('realestate') { <app-real-estate-panel /> }
+      @case ('power') { <app-power-panel /> }
+      @case ('casino') { <app-casino-panel /> }
+      @case ('objectives') { <app-objectives-panel /> }
+    }
+  </main>
+  <app-toast-stack />
+</div>

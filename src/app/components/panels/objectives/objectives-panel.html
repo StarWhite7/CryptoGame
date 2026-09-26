@@ -1,0 +1,10 @@
+<header class="panel-heading"><div><span class="eyebrow">PROGRESSION</span><h1>Objectifs & journal</h1><p>Temps de jeu : {{ game.formatPlaytime(game.state().playSeconds) }}</p></div></header>
+@if (game.state().tutorialStep < game.tutorialSteps.length) {
+  <h2 class="section-title">Tutoriel</h2><section class="milestones">
+    @for (step of game.tutorialSteps; track step.key; let index = $index) { <article class="milestone" [class.done]="index < game.state().tutorialStep"><span>{{ index < game.state().tutorialStep ? '✓' : index + 1 }}</span><p>{{ step.text }}</p></article> }
+  </section>
+}
+<h2 class="section-title">Objectifs</h2><section class="milestones">
+  @for (milestone of game.milestones; track milestone.id) { <article class="milestone" [class.done]="game.state().milestonesDone[milestone.id]"><span>{{ game.state().milestonesDone[milestone.id] ? '✓' : '★' }}</span><p><b>{{ milestone.name }}</b> — {{ milestone.desc }} <small>+{{ milestone.reward }} $</small></p></article> }
+</section>
+<h2 class="section-title">Journal d'événements</h2>@if (game.state().eventLog.length) { <section class="log">@for (entry of game.state().eventLog; track $index) { <p>{{ entry }}</p> }</section> } @else { <p class="empty">Aucun événement pour l’instant.</p> }

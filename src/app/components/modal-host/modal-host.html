@@ -1,0 +1,24 @@
+<div class="overlay" (click)="close()">
+  <section class="dialog" role="dialog" aria-modal="true" (click)="$event.stopPropagation()">
+    <button class="close" aria-label="Fermer" (click)="close()">×</button>
+    @switch (game.modal()) {
+      @case ('inventory') {
+        <span class="eyebrow">RESSOURCES</span><h2>Inventaire</h2>
+        @if (game.state().inventory.length) { <div class="inventory">@for (item of game.state().inventory; track item.typeId) { @if (game.machineDefinition(item.typeId); as machine) { <div class="inventory-row"><span>{{ machine.icon }} <b>{{ machine.name }}</b> ×{{ item.qty }}</span><small>{{ machine.hashrate }} H/s · {{ machine.power }} kW</small></div> } }</div> } @else { <p class="muted">Votre inventaire est vide.</p> }
+      }
+      @case ('pause') {
+        <span class="eyebrow">SESSION EN PAUSE</span><h2>À couvert.</h2><div class="dialog-actions"><button class="button primary" (click)="close()">Reprendre</button><button class="button" (click)="save()">Sauvegarder</button><button class="button" (click)="game.modal.set('settings')">Options</button><button class="button" (click)="continueToMenu()">Menu principal</button><button class="button danger" (click)="quit.emit()">Quitter</button></div>
+      }
+      @case ('settings') {
+        <span class="eyebrow">CONFIGURATION</span><h2>Options</h2><p class="muted">Cette version fonctionne sans audio. La progression est enregistrée dans ce navigateur.</p><button class="button danger" (click)="resetSave()">Effacer la sauvegarde</button>
+      }
+      @case ('place') {
+        <span class="eyebrow">INSTALLATION</span><h2>Choisir une machine</h2>
+        @if (game.state().inventory.length) { <div class="inventory">@for (item of game.state().inventory; track item.typeId) { @if (game.machineDefinition(item.typeId); as machine) { <div class="inventory-row"><span>{{ machine.icon }} <b>{{ machine.name }}</b> ×{{ item.qty }}</span><button class="button primary" (click)="place(item.typeId)">Installer</button></div> } }</div> } @else { <p class="muted">Aucune machine disponible. Rendez-vous au magasin.</p> }
+      }
+      @default {
+        @if (inspectedMachine && inspectedDefinition; as definition) { <span class="eyebrow">INSPECTION</span><h2>{{ definition.icon }} {{ definition.name }}</h2><div class="details"><p><span>Hashrate de base</span><b>{{ definition.hashrate }} H/s</b></p><p><span>Consommation</span><b>{{ definition.power }} kW</b></p><p><span>Chaleur générée</span><b>{{ definition.heat }}</b></p><p><span>État</span><b>{{ inspectedMachine.on ? 'En marche' : 'Arrêtée' }}</b></p><p><span>Santé</span><b>{{ inspectedMachine.health * 100 | number:'1.0-0' }}%</b></p><p><span>Valeur estimée</span><b>{{ game.format0(definition.price * .4) }} $</b></p></div> } @else { <h2>CryptoCity</h2> }
+      }
+    }
+  </section>
+</div>

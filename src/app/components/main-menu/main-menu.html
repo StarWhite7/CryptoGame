@@ -1,0 +1,17 @@
+<main class="menu-screen">
+  <div class="grid-glow" aria-hidden="true"></div>
+  <div class="menu-content">
+    <div class="brand-mark">⛏ <span>CRYPTOCITY</span></div>
+    <p class="kicker">SIMULATION ÉCONOMIQUE · 01</p>
+    <h1>La ville est à vous.<br><em>À vous de la miner.</em></h1>
+    <p class="intro">Commencez dans un studio, développez votre ferme et suivez le cours du CRX.</p>
+    <div class="menu-actions">
+      <button class="primary" (click)="newGame.emit()">Nouvelle partie <span>→</span></button>
+      <button (click)="continueGame.emit()" [disabled]="!hasSave">Continuer <span>↗</span></button>
+      <button (click)="openSettings.emit()">Options <span>⌘</span></button>
+      <button (click)="quit.emit()">Quitter <span>×</span></button>
+    </div>
+    <p class="menu-note">v0.1 · Jeu de gestion indépendant · Aucun actif numérique réel</p>
+  </div>
+  <aside class="menu-aside" aria-hidden="true"><div class="orbit orbit-a"></div><div class="orbit orbit-b"></div><div class="coin">C<span>R</span>X</div><div class="signal s1"></div><div class="signal s2"></div><div class="signal s3"></div><p>HASHRATE<br><b>∞</b></p></aside>
+</main>

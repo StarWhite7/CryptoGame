@@ -1,0 +1,1 @@
+<nav class="navigation" aria-label="Navigation principale">@for (item of items; track item.id) { <button [class.active]="game.activePanel() === item.id" [attr.aria-current]="game.activePanel() === item.id ? 'page' : null" (click)="game.showPanel(item.id)"><span>{{ item.icon }}</span>{{ item.label }}</button> }</nav>

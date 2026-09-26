@@ -1,0 +1,6 @@
+<header class="hud">
+  <a class="brand" href="#" (click)="$event.preventDefault()"><span>⛏</span> CRYPTOCITY</a>
+  <div class="stats"><div class="stat cash"><span>TRÉSORERIE</span><b>{{ game.format0(game.state().cash) }} <small>$</small></b></div><div class="stat crx"><span>CRX EN STOCK</span><b>{{ game.format(game.state().crx, 3) }} <small>CRX</small></b></div><div class="stat"><span>COURS</span><b>{{ game.format0(game.state().crxPrice) }} <small>$ / CRX</small></b></div><div class="stat"><span>PUISSANCE</span><b>{{ game.format(game.state().stats.currentHashrate, 1) }} <small>H/s</small></b></div></div>
+  <div class="objective"><span>PROCHAIN OBJECTIF</span><b>{{ game.objectiveText() }}</b></div>
+  <div class="tools"><button aria-label="Ouvrir l’inventaire" title="Inventaire" (click)="openInventory()">▤</button><button aria-label="Mettre en pause" title="Pause" (click)="pause()">Ⅱ</button></div>
+</header>

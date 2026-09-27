@@ -18,6 +18,7 @@ export interface PropertyDefinition {
   slots: number;
   ambient: number;
   cooling: number;
+  requires?: string;
   desc: string;
 }
 
@@ -32,6 +33,8 @@ export interface PropertyState {
   coolingBonus: number;
   powerBonus: number;
   roomTemp: number;
+  coolingItems: string[];
+  powerUpgrades: string[];
   machines: Machine[];
 }
 
@@ -54,6 +57,8 @@ export interface GameState {
   playSeconds: number;
   marketTimer: number;
   eventTimer: number;
+  autoSaleTimer: number;
+  staff: { technician: boolean; energy_manager: boolean; operator: boolean };
   stats: {
     totalMined: number;
     salesCount: number;

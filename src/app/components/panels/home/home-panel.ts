@@ -12,6 +12,7 @@ export class HomePanelComponent {
   get slots(): number[] { return Array.from({ length: this.propertyDefinition?.slots ?? 0 }, (_, index) => index); }
   get powerUsed(): number { return this.property?.machines.filter((machine) => machine.on).reduce((sum, machine) => sum + (this.game.machineDefinition(machine.typeId)?.power ?? 0), 0) ?? 0; }
   get powerLimit(): number { return (this.propertyDefinition?.powerLimit ?? 0) + (this.property?.powerBonus ?? 0); }
+  get hourlyOperatingCost(): number { return this.game.propertyHourlyOperatingCost(this.selectedPropertyId); }
   selectProperty(id: string): void { this.selectedPropertyId = id; this.game.setActiveProperty(id); }
   openPlace(): void { this.game.modal.set('place'); }
   inspect(uid: string): void { this.game.modal.set(`inspect:${uid}`); }

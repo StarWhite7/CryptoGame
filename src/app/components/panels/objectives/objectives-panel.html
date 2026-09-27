@@ -1,4 +1,4 @@
-<header class="panel-heading"><div><span class="eyebrow">PROGRESSION</span><h1>Objectifs & journal</h1><p>Temps de jeu : {{ game.formatPlaytime(game.state().playSeconds) }}</p></div></header>
+<header class="panel-heading"><div><span class="eyebrow">PROGRESSION</span><h1>Objectifs & journal</h1><p>{{ game.progressionPhase() }} · Temps de jeu : {{ game.formatPlaytime(game.state().playSeconds) }}</p></div></header>
 @if (game.state().tutorialStep < game.tutorialSteps.length) {
   <h2 class="section-title">Tutoriel</h2><section class="milestones">
     @for (step of game.tutorialSteps; track step.key; let index = $index) { <article class="milestone" [class.done]="index < game.state().tutorialStep"><span>{{ index < game.state().tutorialStep ? '✓' : index + 1 }}</span><p>{{ step.text }}</p></article> }

@@ -7,6 +7,6 @@ export class BankPanelComponent {
   amount = 0;
   constructor(readonly game: GameService) {}
   sell(): void { this.game.sellCrx(Number(this.amount) || 0); }
-  get history(): number[] { return this.game.state().priceHistory.slice(-12); }
+  get history(): number[] { return this.game.state().priceHistory.slice(-24); }
   get maxPrice(): number { return Math.max(1, ...this.history); }
 }

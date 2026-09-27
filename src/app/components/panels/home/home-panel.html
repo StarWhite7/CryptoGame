@@ -4,7 +4,7 @@
     <label>Gérer<select [ngModel]="selectedPropertyId" (ngModelChange)="selectProperty($event)">@for (id of game.state().ownedPropertyIds; track id) { <option [value]="id">{{ game.propertyDefinition(id)?.name }}</option> }</select></label>
   </header>
   <section class="meters" aria-label="État de la propriété">
-    <article class="meter"><span>Puissance</span><strong>{{ game.format(powerUsed, 2) }} <small>/ {{ game.format(powerLimit, 1) }} kW</small></strong><div class="track"><i [style.width.%]="powerUsed / powerLimit * 100"></i></div></article>
+    <article class="meter"><span>Puissance</span><strong>{{ game.format(powerUsed, 2) }} <small>/ {{ game.format(powerLimit, 1) }} kW</small></strong><div class="track"><i [style.width.%]="powerUsed / powerLimit * 100"></i></div><small>Coûts d’exploitation : {{ game.format0(hourlyOperatingCost) }} $/h</small></article>
     <article class="meter"><span>Température</span><strong [class.hot]="current.roomTemp > 70">{{ game.format(current.roomTemp, 1) }} °C</strong><div class="track heat"><i [style.width.%]="(current.roomTemp - 15) / 85 * 100"></i></div></article>
     <article class="meter"><span>Machines installées</span><strong>{{ current.machines.length }} <small>/ {{ propertyDefinition?.slots }} emplacements</small></strong></article>
   </section>
@@ -14,7 +14,7 @@
         @if (game.machineDefinition(machine.typeId); as definition) {
           <article class="machine" [class.broken]="machine.health <= 0"><div class="machine-title"><span>{{ definition.icon }} {{ definition.name }}</span><i class="status" [class.on]="machine.on"></i></div>
             <dl><div><dt>Hashrate</dt><dd>{{ definition.hashrate }} H/s</dd></div><div><dt>Consommation</dt><dd>{{ definition.power }} kW</dd></div><div><dt>État</dt><dd>{{ machine.health <= 0 ? 'En panne' : (machine.on ? 'En marche' : 'Arrêtée') }} · {{ machine.health * 100 | number:'1.0-0' }}%</dd></div></dl>
-            <div class="actions">@if (machine.health <= 0) { <button class="button" (click)="game.repairMachine(selectedPropertyId, machine.uid)">Réparer</button> } @else { <button class="button" (click)="game.toggleMachine(selectedPropertyId, machine.uid)">{{ machine.on ? 'Éteindre' : 'Allumer' }}</button> }<button class="button secondary" (click)="inspect(machine.uid)">Inspecter</button><button class="button secondary" (click)="game.pickUpMachine(selectedPropertyId, machine.uid)">Récupérer</button></div>
+            <div class="actions">@if (machine.health <= 0.75) { <button class="button" (click)="game.repairMachine(selectedPropertyId, machine.uid)">Réparer</button> }@if (machine.health > 0) { <button class="button" (click)="game.toggleMachine(selectedPropertyId, machine.uid)">{{ machine.on ? 'Éteindre' : 'Allumer' }}</button> }<button class="button secondary" (click)="inspect(machine.uid)">Inspecter</button><button class="button secondary" (click)="game.pickUpMachine(selectedPropertyId, machine.uid)">Récupérer</button></div>
           </article>
         }
       } @else {
